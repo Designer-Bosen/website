@@ -1,6 +1,10 @@
 .hero {
-    width: 100vw;              /* full viewport width */
-    margin-left: calc(50% - 50vw);
+    width: 100%;
+    aspect-ratio: 6.41 / 1; /* adjust based on the given image resolution ratio */
+    background-image: url("../images/banner.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 
