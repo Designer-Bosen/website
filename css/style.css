@@ -91,22 +91,29 @@ h1 {
 
 
 
-/*##########################*/
-/* ====MATHEMATICS PAGE==== */
 
-.math-hero {
+
+
+
+
+
+/*################################*/
+/* ==== ARRANGEMENT 1 LAYOUT ==== */
+
+/* Hero Section */
+.arrangement1-hero {
     width: 100%;
-    aspect-ratio: 4 / 1; /* adjust based on the given image resolution ratio */
-    background-image: url("../images/math_banner.jpg");
+    aspect-ratio: 4 / 1;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    justify-content: center;  /* horizontal center */
+    justify-content: center;
     align-items: center;
 }
 
-.math-title {
+/* Hero Title */
+.arrangement1-title {
     color: white;
     font-size: 128px;
     font-weight: bold;
@@ -114,85 +121,29 @@ h1 {
     text-shadow: 0 4px 15px rgba(0, 0, 0, 1);
 }
 
-.math-container {
-    width: 90%;          
-    max-width: 1300px;   
-    margin: 0 auto;      
+/* Page Container */
+.arrangement1-container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
-.math-list {
+/* Content List */
+.arrangement1-list {
     margin-top: 40px;
     font-size: 18px;
 }
 
 
-
-/*#######################*/
-/* ====PROJECTS PAGE==== */
-
-.projects-hero {
-    width: 100%;
-    aspect-ratio: 4 / 1; /* adjust based on the given image resolution ratio */
+/* for banners on different pages */
+.arrangement1-hero--projects {
     background-image: url("../images/projects_banner.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;  /* horizontal center */
-    align-items: center;
 }
 
-.projects-title {
-    color: white;
-    font-size: 128px;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 1);
-}
-
-.projects-container {
-    width: 90%;          
-    max-width: 1300px;   
-    margin: 0 auto;      
-}
-
-.projects-list {
-    margin-top: 40px;
-    font-size: 18px;
-}
-
-
-
-/*###################*/
-/* ====LIFE PAGE==== */
-
-.life-hero {
-    width: 100%;
-    aspect-ratio: 4 / 1; /* adjust based on the given image resolution ratio */
+.arrangement1-hero--life {
     background-image: url("../images/life_banner.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;  /* horizontal center */
-    align-items: center;
 }
 
-.life-title {
-    color: white;
-    font-size: 128px;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 1);
-}
-
-.life-container {
-    width: 90%;          
-    max-width: 1300px;   
-    margin: 0 auto;      
-}
-
-.life-list {
-    margin-top: 40px;
-    font-size: 18px;
+.arrangement1-hero--math {
+    background-image: url("../images/math_banner.jpg");
 }
