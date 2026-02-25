@@ -67,12 +67,11 @@ Quadratic residues form a subgroup of size 8. This is why the first splitting is
 
 
 ### **Proof**  
-There might be other proofs, but this proof is basic on the intuition from this source:  
+There might be other proofs, but this proof is primarily basic on this source:  
 https://ocw.mit.edu/courses/18-702-algebra-ii-spring-2011/4ebf8b1ca041c015dd8fd86fd19c4198_MIT18_702S11_seventeengon5.pdf
 
+WE WANT TO DEDUCE THAT 
 $$\cos(\frac{2\pi}{17}) = \frac{\sqrt{17}-1+\sqrt{34-2\sqrt{17}} + 2\sqrt{17+3\sqrt{17}-\sqrt{34-2\sqrt{17}}-2\sqrt{34+2\sqrt{17}}}}{16}$$
-
-
 
 #### **STEP 1**  
 
@@ -101,8 +100,18 @@ The multiplicative group $(\mathbb{Z}/17\mathbb{Z})^\times$ is cyclic of order 1
 
 Define $R_1 = \{1,4,16,13\}$ and $R_2 = \{2,8,15,9\}$. Let $\gamma = \sum_{k \in R_1}\zeta^k$ and $\delta = \sum_{k \in R_2}\zeta^k$, then $\gamma + \delta = \alpha=\frac{-1+\sqrt{17}}{2}$. To compute $\gamma\delta=\sum_{a \in R_1}\sum_{b \in R_2}\zeta^{a+b}$, Each exponent in $R$ appears exactly twice and each exponent in $N$ appears exactly once. After summing and simplifying using $1+\sum_{k=1}^{16}\zeta^k=0$, obtains $\gamma\delta = \frac{-1-\sqrt{17}}{4}$
 
-$\gamma$ and $\delta$ satisfy $x^2-(\gamma+\delta)x+\gamma\delta=(x-\gamma)(x-\delta)=0$. the solution is $x\frac{-1+\sqrt{17}\pm \sqrt{34-2\sqrt{17}}}{4}$. So $\gamma=x\frac{-1+\sqrt{17}+\sqrt{34-2\sqrt{17}}}{4}$ and $\delta=x\frac{-1+\sqrt{17}-\sqrt{34-2\sqrt{17}}}{4}$
+$\gamma$ and $\delta$ satisfy $x^2-(\gamma+\delta)x+\gamma\delta=(x-\gamma)(x-\delta)=0$. the solution is $x=\frac{-1+\sqrt{17}\pm \sqrt{34-2\sqrt{17}}}{4}$. So $\gamma=\frac{-1+\sqrt{17}+\sqrt{34-2\sqrt{17}}}{4}$ and $\delta=\frac{-1+\sqrt{17}-\sqrt{34-2\sqrt{17}}}{4}$
 
-Now this has been reduced to degree 2.
+Now this has been reduced to degree-2.
 
 #### **STEP 4**
+
+Recall $R_1 = \{1,4,16,13\}$. Notice $16\equiv -1$ (mod 17) and $13\equiv -4$ (mod 17). So gorup conjugate pairs: $S_1=\{1,16\}$ and $S_2=\{4,13\}$. Let $u=\zeta+\zeta^{16}=\zeta+\zeta^{-1}$ and $v=\zeta^{4}+\zeta^{13}=\zeta^{4}+\zeta^{-4}$. So $u+v=\zeta+\zeta^{16}+\zeta^{4}+\zeta^{13}=\gamma$. Now the problem is to split $u=2\cos(\frac{2\pi}{17})$.
+
+$uv=(\zeta+\zeta^{-1})(\zeta^{4}+\zeta^{-4})=\zeta^5+\zeta^{-5}+\zeta^3+\zeta^{-3}$. Observe 3 and 5 are non-quadratic residues, so this sum lies inside $\delta$. Regrouping gives $uv=\delta=\frac{-1-\sqrt{17}-\sqrt{34+2\sqrt{17}}}{4}$.
+
+Then $u$ and $v$ are roots of $x^2-\gamma x + uv=0$, substitute the expression from STEP 3 and solve. $u = \frac{\sqrt{17}-1+\sqrt{34-2\sqrt{17}} + 2\sqrt{17+3\sqrt{17}-\sqrt{34-2\sqrt{17}}-2\sqrt{34+2\sqrt{17}}}}{16}=2\cos(\frac{2\pi}{17})$ so 
+
+$$\cos(\frac{2\pi}{17}) = \frac{\sqrt{17}-1+\sqrt{34-2\sqrt{17}} + 2\sqrt{17+3\sqrt{17}-\sqrt{34-2\sqrt{17}}-2\sqrt{34+2\sqrt{17}}}}{16}$$
+
+This completes the proof.
