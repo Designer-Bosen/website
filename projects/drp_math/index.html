@@ -15,7 +15,7 @@
     <div id="content"></div>
 
     <script>
-        fetch("drp.md")
+        fetch("drp_math.md")
             .then(r => r.text())
             .then(text => {
                 document.getElementById("content").innerHTML = marked.parse(text);
