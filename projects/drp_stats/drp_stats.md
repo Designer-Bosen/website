@@ -49,7 +49,14 @@ For Large $N$, the presence of the partition function makes it extreme computati
 
 **Pseudo-Likelihood:** 
 
-The proposed Penalized Maximum Pseudo-likelihood (PMPL) is this paper is 
+The conditional distribution of $X_i$ given $(X_j)_{j\neq i}$ is:
+
+$$\mathbb{P}(X_i \mid (X_j)_{j\neq i}, \mathbf{Z})=\frac{e^{X_i\mathbf{\theta}^T\mathbf{Z}_i+\beta X_i m_i(\mathbf{X})}}{e^{\mathbf{\theta}^T\mathbf{Z}_i+\beta m_i(\mathbf{X})} + e^{-\mathbf{\theta}^T\mathbf{Z}_i-\beta m_i(\mathbf{X})}}$$
+
+The proposed Penalized Maximum Pseudo-likelihood (PMPL) in the paper is given as the minimizers $(\beta,\mathbf{\theta})$ with a regularization (tuning) parameter $\lambda$:
+
+$$(\hat{\beta}, \hat{\mathbf{\theta}}^T):=\text{arg}\min_{(\beta,\mathbf{\theta})}=\{L_N(\beta,\mathbf{\theta})+\lambda\|\theta\|_1\}$$
+
 
 ### Weakly Dependent Data and Dobrushin’s Condition
 
