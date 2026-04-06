@@ -1,6 +1,6 @@
 [← Back](../index.html)
 
-# Directed Reading Program - Generalized Matrix Norms
+# MATH Directed Reading - Generalized Matrix Norms
 **Mentored by PhD Student William Chang**  
 [Anchor paper](https://epubs.siam.org/doi/epdf/10.1137/23M1605545)
 

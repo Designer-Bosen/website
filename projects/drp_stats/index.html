@@ -1,31 +1,78 @@
 <!DOCTYPE html>
 <html>
+<!-- Credit: https://stackoverflow.com/questions/37770620/how-to-include-markdown-md-files-inside-html-files-->
 
 <head>
     <meta charset="UTF-8">
     <title>Stats 199 - Directed Research</title>
 
+    <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script> window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } }; </script>
+
+    <!-- MathJax config -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+
+    <!-- MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <!-- Page styling-->
+    <style>
+        body {
+            max-width: 1000px;
+            margin: 20px auto;
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        h1, h2, h3 {
+            margin-top: 1em;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div id="content"></div>
+<div id="content"></div>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const file = params.get("file") || "drp_stats.md";
+<script>
+const params = new URLSearchParams(window.location.search);
+const file = params.get("file") || "drp_stats.md";
 
-        fetch(file)
-        .then(r => r.text())
-        .then(text => {
-            document.getElementById("content").innerHTML = marked.parse(text);
-            MathJax.typesetPromise();
-        });
-    </script>
+fetch(file)
+.then(r => r.text())
+.then(text => {
+
+    const mathBlocks = [];
+
+    // Protect $$...$$ blocks
+    text = text.replace(/\$\$[\s\S]*?\$\$/g, (match) => {
+        mathBlocks.push(match);
+        return `@@MATH${mathBlocks.length - 1}@@`;
+    });
+
+    // Protect $...$ inline math
+    text = text.replace(/\$(?!\$)(.*?)\$/g, (match) => {
+        mathBlocks.push(match);
+        return `@@MATH${mathBlocks.length - 1}@@`;
+    });
+
+    let html = marked.parse(text);
+
+    html = html.replace(/@@MATH(\d+)@@/g, (_, i) => mathBlocks[i]);
+
+    const content = document.getElementById("content");
+    content.innerHTML = html;
+
+    return MathJax.typesetPromise([content]);
+});
+</script>
 
 </body>
-
 </html>

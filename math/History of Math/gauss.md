@@ -1,3 +1,4 @@
+[← Back](../index.html)
 # Carl Friedrich Gauss (1777-1855)  
 **The Prince of Mathematics**
 
