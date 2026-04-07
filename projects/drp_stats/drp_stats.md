@@ -53,9 +53,16 @@ The conditional distribution of $X_i$ given $(X_j)_{j\neq i}$ is:
 
 $$\mathbb{P}(X_i \mid (X_j)_{j\neq i}, \mathbf{Z})=\frac{e^{X_i\mathbf{\theta}^T\mathbf{Z}_i+\beta X_i m_i(\mathbf{X})}}{e^{\mathbf{\theta}^T\mathbf{Z}_i+\beta m_i(\mathbf{X})} + e^{-\mathbf{\theta}^T\mathbf{Z}_i-\beta m_i(\mathbf{X})}}$$
 
-The proposed Penalized Maximum Pseudo-likelihood (PMPL) in the paper is given as the minimizers $(\beta,\mathbf{\theta})$ with a regularization (tuning) parameter $\lambda$:
+The negative Log Pseudo-Likelihood (LPL) is given as 
+
+$$L_N(\beta,\mathbf{\theta})=-\frac{1}{N}\sum_{i=1}^N \log \mathbb{P}(X_i \mid (X_j)_{j\neq i}, \mathbf{Z})=-\frac{1}{N}\sum_{i=1}^N \{X_i(\mathbf{\theta}^T\mathbf{Z}_i+\beta m_i(\mathbf{X})) - \log \cosh(\mathbf{\theta}^T\mathbf{Z}_i+\beta m_i(\mathbf{X}))\} + \log(2)$$
+
+The proposed Penalized Maximum Pseudo-likelihood (PMPL) in the paper is given as the estimator of $(\beta, \mathbf{\theta}^T)$ with a L1 regularization (tuning) parameter $\lambda$ as follows:
 
 $$(\hat{\beta}, \hat{\mathbf{\theta}}^T):=\text{arg}\min_{(\beta,\mathbf{\theta})}=\{L_N(\beta,\mathbf{\theta})+\lambda\|\theta\|_1\}$$
+
+under various regularization assumptions, Theorem 1 states if $\lambda$ is chosen proportional to $\sqrt{\log(\frac{d}{n})}$
+
 
 
 ### Weakly Dependent Data and Dobrushin’s Condition
@@ -65,3 +72,32 @@ $$(\hat{\beta}, \hat{\mathbf{\theta}}^T):=\text{arg}\min_{(\beta,\mathbf{\theta}
 ### Main Contribution of the Anchored Paper
 
 This motivates the question of whether similar gradient concentration and curvature properties (e.g., restricted strong convexity) can still be established under weak dependence, particularly when using pseudo-likelihood or Bayesian formulations.
+
+
+---
+## My Direction:
+
+Given above results from the anchor paper, I want to formulate a Bayesian logistic regression model under network dependence. Then analyze its properties under this regime e.g. posterior contraction rates, consistency, computational approaches such as MCMC.
+
+Keywords: High-dimensional Bayesian Inference, restricted strong convexity
+
+### Prior Knowledge on Bayesian Inference:
+
+**Bayesian Theorem:** $\mathbb{P}(A \mid B)=\frac{\mathbb{P}(B \mid A)\cdot \mathbb{P}(A)}{\mathbb{P}(B)}$
+
+From Bayesian perspective, parameter $\theta$ is treated as a random variable and follows some distribution. If $Y$ represents the data, the probability density function of $\theta$ give $Y$ can be represented as:
+
+$$f(\theta \mid Y) = \frac{f(Y \mid \theta) \cdot f(\theta)}{f(Y)} = \frac{\text{Likelihood} \cdot \text{Prior}}{\text{Normalizing Constant}} \propto \text{Likelihood} \cdot \text{Prior}$$
+
+**Bayesian Logistic Regression Model:**
+
+
+
+## Informal Reference
+
+Bayesian Data Analysis Third Edition, Gelman
+
+High-Dimensional Bayesian Regularized Regression with the bayesreg Package (arXiv:1611.06649)
+
+
+---
