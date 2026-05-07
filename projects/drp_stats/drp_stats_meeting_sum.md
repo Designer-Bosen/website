@@ -40,4 +40,8 @@ $$\textcolor{red}{\text{QUESTIONS}
 }$$
 
 - If we want to induce graph sparsity and learn the network structure, do we need to replace the scalar dependence parameter $\beta$ with an edge-specific interaction matrix $B=(\beta_{ij})$? I remember in this paper $\beta$ is just a scalar
+- Can I consider MLP to recover $\beta$ and $\theta$, and how does this connect to the posterior contraction rate.
+- Sub-regression of L1 term, sparsity, and sign function with $\{-1, 1\}$ encoding.
 - Lecture Question: is 1 a supremum of AUC instead of maximum? Since in hypothesis testing, alpha + beta > 0
+- Lecture QUestion: do people simulate the ratio of its biased down, if so, we can just add that back to recover more unbiased estimate
+
