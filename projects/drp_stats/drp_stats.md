@@ -116,7 +116,7 @@ $$
 
 and Maximum A Posteriori (MAP) is given as $\hat{\theta}_{MAP} = \arg\min_{\theta}-\log P(\theta \mid X, \mathbf{Z})$. Under standard assumptions, MAP estimator achieves rate: $\|\hat{\theta}_{MAP} - \theta\| = O\left(\frac{1}{\sqrt{N}}\right)$. In high dimensional setting, another induced condition is sparsity achieved by choosing priors $\theta_i \sim \text{Laplace}(\lambda)$, where $P(\theta)\propto \exp(-\lambda \|\theta\|_1)$. Then MAP estimator for L1-regularized logistic regression is given as
 
-$$\hat{\theta}_{MAP}=\arg\min_\theta\{-\ell(\theta)+\lambda\|\theta\|_1\}$$
+$$\hat\theta_{MAP}=\arg\min_\theta\{-\ell(\theta)+\lambda\|\theta\|_1\}$$
 
 
 ---
@@ -147,26 +147,29 @@ $$-\ell(\theta, \beta)=-\sum_{i=1}^N \log \sigma(2X_iS_i)$$
 - $\beta \sim N(0, \tau^2_\beta)$: Standard Gaussian Prior 
 
 **sigma:**
-- $\theta_i \sim \text{Laplace}(\lambda)$: Turns into L1 penalty in MAP. Induces self-effect sparsity in high dimension
-- $\theta_i \sim (1-\pi)\delta_0+\pi N(0, \tau_\theta^2)$: Encourages exact sparsity through a mixture of a point mass at zero and a Gaussian component.
-- $\theta_i \sim N(0, \lambda_i^2 \tau_\theta^2)$:  Strongly shrinks small coefficients toward zero while allowing large signals to remain less penalized.
+- $\textbf{Laplace: }\theta_i \sim \text{Laplace}(\lambda)$: Turns into L1 penalty in MAP. Induces self-effect sparsity in high dimension
+- $\textbf{Spike-and-Slab Prior: }\theta_i \sim (1-\pi)\delta_0+\pi N(0, \tau_\theta^2)$ where $\delta_0=1$ if $\theta_i=0$; $\delta_0=0$ otherwise: Encourages exact sparsity through a mixture of a point mass at zero and a Gaussian component.
+- $\textbf{Horseshoe: }\theta_i \sim N(0, \lambda_i^2 \tau_\theta^2)$:  Strongly shrinks small coefficients toward zero while allowing large signals to remain less penalized.
 
-### OPTIMIZATION
+---
+
+## Phase 4: OPTIMIZATION
 
 With $\beta \sim N(0, \tau^2_\beta)$ and $\theta_i \sim \text{Laplace}(\lambda)$, the MAP estimator is given as:
 
-$$(\theta, \beta)_{MAP}=\arg\min_{\theta, \beta} \big\{ \mathcal{L(\theta, \beta)}\big\}$$
+$$(\hat\theta, \hat\beta)_{MAP}=\arg\min_{\theta, \beta} \big\{ \mathcal{L(\theta, \beta)}\big\}$$
 
 where
 
 $$\mathcal{L(\theta, \beta)}=-\ell(\theta, \beta) + \lambda\|\theta\|_1 + \frac{\beta^2}{2\tau_\beta^2}$$
 
+Then, the gradient and subgradient are given as 
 
-**OPTIMIZATION (L1-Regularized MAP Estimator)**
+$$\nabla_{\beta}\mathcal{L(\theta, \beta)}=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$$
 
-$$\nabla_\theta-\ell(\theta)=-\sum_{i=1}^N \big[X_i\mathbf{Z}_i - \tanh(\theta^T \mathbf{Z}_i)\mathbf{Z}_i\big]=\sum_{i=1}^N \big[(\tanh(\theta^T \mathbf{Z}_i) - X_i)\mathbf{Z}_i\big]$$
+$$\partial_\theta \mathcal{L(\theta, \beta)}=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)Z_i+\lambda\partial \|\theta\|_1$$
 
-The subgradient for L1-regularization term is 
+where
 
 $$
 \partial \|\theta\|_1 =
@@ -185,8 +188,22 @@ $$
 
 ---
 
+## Phase 5: Theory
+
+**Hessian Matrix**
+
+**Bias Analysis**
+
+---
+
 ## Informal Reference Section
 
 Bayesian Data Analysis Third Edition, Gelman
 
 High-Dimensional Bayesian Regularized Regression with the bayesreg Package (arXiv:1611.06649)
+
+https://johnwlambert.github.io/subgradient-methods/
+
+https://www.bayesrulesbook.com/chapter-13
+
+https://www2.stat.duke.edu/~banks/521-lectures.dir/lect10.pdf
