@@ -218,12 +218,13 @@ $$
 Therefore, the objective function $\mathcal{L}(\theta^T, \beta)$ is convex.
 
 
-
 ---
 
 ## Phase 5: Theory
 
 **Bias Analysis**
+
+
 
 ---
 
