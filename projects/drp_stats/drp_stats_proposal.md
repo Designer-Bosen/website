@@ -60,9 +60,7 @@ Review foundational literature on:
 
 ## Phase 2 — Framework Formulation (Theory)
 
-Formulate the Bayesian logistic regression model under network dependence.
-
-Analyze whether gradient concentration, convexity, and sparsity conditions hold in this regime.
+Formulate the Bayesian logistic regression model under network dependence. Analyze whether gradient concentration, convexity, and sparsity conditions hold in this regime.
 
 ## Phase 3 — Simulation (Computation)
 
@@ -76,5 +74,5 @@ Implement simulations to:
 
 # Expected Outcomes
 
-- A **3–5 page report** summarizing theoretical results and simulations. 
+- A **3–5 page report** summarizing findinds and simulation results. 
 - Numerical experiments implemented in **Python,**.

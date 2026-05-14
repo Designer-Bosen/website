@@ -42,21 +42,20 @@ $$f(\theta \mid Y) = \frac{f(Y \mid \theta) \cdot f(\theta)}{f(Y)} = \frac{\text
 **Covariate Matrix** $Z \in \mathbb{R}^{N\times p}$ represent the collection of node-specific features, where $Z_i$ corresponds to the covariate vector of node $i$. $Z$ captures the individual effects, and entries of Z are generated independent from a chosen distribution.
 
 **Outcome Vector** $X \in \{-1,1\}^{N}$ where $X_i$ is generated through a iterative updating process inspired by Gibbs samppling.
-For each node in each iteration, $X_i$ is mapped from a probablistic function $\sigma$ using the score vector $S$ and $S_i=\theta^T\mathbf{Z}_i + \beta m_i=\text{Individual Feature} + \beta \times \text{Neighbor Influence}$ where individual effect $k_i = Z_i \theta$ is determined by the node-specific features $Z_i$ with weights $\theta$; neighbor influence $\beta  m_i$ is computed from the current states of neighboring nodes; $m_i=\frac{1}{d_i}\sum_{j=1}^N A_{ij}X_j$ is the averaged neighbor influence with strength of peer effect $\beta$. Finally, the node specific conditional probability of the following form can be achieved through the modeling process:
+For each node in each iteration, $X_i$ is sampled from a conditional probability distribution $\sigma$ using the score vector $S$ and $S_i=\theta^T\mathbf{Z}_i + \beta m_i=\text{Individual Feature} + \beta \times \text{Neighbor Influence}$ where individual effect $k_i = Z_i \theta$ is determined by the node-specific features $Z_i$ with weights $\theta$; neighbor influence $\beta  m_i$ is computed from the current states of neighboring nodes; $m_i=\sum_{j=1}^N A_{ij}X_j$ is the total neighbor influence with strength of peer effect $\beta$. Finally, the node specific conditional probability of the following form can be achieved through the modeling process:
 
 $$\mathbb{P}(X_i = 1 \mid X_{-i}, \mathbf{Z})=\sigma(2(\theta^T\mathbf{Z}_i + \beta m_i))$$
 
-**Note:** there is a trade-off between individual features and neighbor influence, and the outcome depends on which effect is stronger. For example, If a node’s own features strongly favor 1, but neighbors are mostly -1, this means the node's own feature dominates. If a node has most of its neighbors being 1, the probability for itself being one increases.
+
 
 #### Pseudo Code:
 
 **STEP 1: Create:**
 - Adjacency matrix $A \in \mathbb{R}^{N\times N}_\text{sym}$ (network frame)
 - Covariate matrix $Z \in \mathbb{R}^{N\times p}$ (node features)
-- Parameter vector $\theta^T \in \mathbb{R}^{p}$ (feature effect)
-- Parameter scalar $\beta \in \mathbb{R}$ (peer effect)
-- Number of iterations `num_iter`
-- Burn-in length `burn_in`
+- Parameter vector $\theta \in \mathbb{R}^{p}$ (feature effect)
+- Parameter scalar $\beta \geq 0$ (peer effect)
+- Number of iterations (burn-in) `num_iter`
 
 **STEP 2: Initialize:** 
 Randomly Initialize node states, e.g. $\mathbb{P}(X_i^{(0)} = +1)=p$, $\mathbb{P}(X_i^{(0)}=-1)=1-p$
@@ -69,8 +68,7 @@ $$
 **STEP 3: Gibbs Process:**  
 For t = 1 to `num_iter`:  
 For each node i:  
-- Compute Neighbor Influence: $m_i^{(t)} = \sum_j A_{ij} X_j^{(t-1)}$  
-- Compute Score: $S_i^{(t)} = \theta^T Z_i + \beta m_i^{(t)}$
+- Compute Score: $S_i^{(t)} = \theta^T Z_i + \beta \sum_j A_{ij} X_j^{(t-1)}$
 - Convert to Probability: $p_i^{(t)} = \text{sigmoid}(2S_i^{(t)})$ 
 - Sample New State: 
 $$
@@ -80,7 +78,8 @@ X_i^{(t)}=
 -1, & \text{with probability } 1-p_i^{(t)}.
 \end{cases}
 $$ 
-- If t > `burn_in`: Record $X^{(t)}$ 
+
+Return  $X^{(t)}$, $A$, $Z$
 
 
 ---
