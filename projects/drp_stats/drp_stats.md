@@ -48,16 +48,16 @@ $$\mathbb{P}(X_i = 1 \mid X_{-i}, \mathbf{Z})=\sigma(2(\theta^T\mathbf{Z}_i + \b
 
 
 
-#### Pseudo Code:
+### PSEUDO CODE:
 
-**STEP 1: Create:**
+**STEP 1: Create**
 - Adjacency matrix $A \in \mathbb{R}^{N\times N}_\text{sym}$ (network frame)
 - Covariate matrix $Z \in \mathbb{R}^{N\times p}$ (node features)
 - Parameter vector $\theta \in \mathbb{R}^{p}$ (feature effect)
 - Parameter scalar $\beta \geq 0$ (peer effect)
 - Number of iterations (burn-in) `num_iter`
 
-**STEP 2: Initialize:** 
+**STEP 2: Initialize** 
 Randomly Initialize node states, e.g. $\mathbb{P}(X_i^{(0)} = +1)=p$, $\mathbb{P}(X_i^{(0)}=-1)=1-p$
 
 $$
@@ -65,7 +65,7 @@ X^{(0)} = (X_1^{(0)},\dots,X_N^{(0)}) \in \{-1,+1\}^N
 $$
 
 
-**STEP 3: Gibbs Process:**  
+**STEP 3: Gibbs Process**  
 For t = 1 to `num_iter`:  
 For each node i:  
 - Compute Score: $S_i^{(t)} = \theta^T Z_i + \beta \sum_j A_{ij} X_j^{(t-1)}$
@@ -162,24 +162,12 @@ where
 
 $$\mathcal{L}(\theta^T, \beta)=-\ell(\theta^T, \beta) + \lambda\|\theta^T\|_1 + \frac{\beta^2}{2\tau_\beta^2}$$
 
-### GRADIENT
+### GRADIENT (smooth-terms)
 
 $$\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$$
 
-$$\partial_{\theta^T} \mathcal{L}(\theta^T, \beta)=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i+\lambda\partial \|\theta^T\|_1$$
-
-where
-
-$$
-\partial \|\theta^T\|_1 =
-\left\{
-s \in \mathbb{R}^p :
-\begin{cases}
-s_j = \mathrm{sign}(\theta^T_j) & \text{if } \theta^T_j \neq 0 \\
-s_j \in [-1,1] & \text{if } \theta^T_j = 0
-\end{cases}
-\right\}
-$$
+$$\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=
+-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$$
 
 ### HESSIAN MATRIX
 
@@ -215,6 +203,37 @@ $$
 **$H$ is positive definite:** since $\sigma(x)>0$, then $w_i>0$. For any vector non-trivial $v\in \mathbb{R}^{p+1}$, $v^THv=4\sum_{i=1}^N w_i v^Tu_iu_i^Tv + \frac{v_{p+1}^2}{\tau_\beta^2}=4\sum_{i=1}^N w_i (u_i^Tv)^2 + \frac{v_{p+1}^2}{\tau_\beta^2}\geq 0$. Thus $H \succeq 0$. 
 
 Therefore, the objective function $\mathcal{L}(\theta^T, \beta)$ is convex.
+
+### OPTIMIZATION PSEUDO CODE
+
+**STEP 1: Define Parameters**
+- $\lambda$: Laplace prior penalty coefficient
+- $\tau^2$: Gaussian prior variance
+- `tol`: Stopping tolerance
+- `shrink`: Backtracking step size shrinkage factor
+- `eps`: Backtracking decreasing factor
+- `step_beta_0`: GD w.r.t $\beta$ initial step size
+- `step_theta_0`: GD w.r.t $\theta^T$ initial step size
+
+**STEP 2: Define Functions**
+- `fcn(theta, beta)`: $\mathcal{L}(\theta^T, \beta)=-\ell(\theta^T, \beta) + \lambda\|\theta^T\|_1 + \frac{\beta^2}{2\tau_\beta^2}$
+- `grad_beta(theta, beta)`: $\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$
+- `grad_theta(theta, beta)`: $\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$
+
+**STEP 3: Setups**
+- Get dimensions: `N, p = Z.shape`
+- Initialize `beta_old = 0`, `theta_old = np.zeros(p)`, 
+- Initialize `beta_new = beta_old`, `theta_new = theta_old`
+
+**STEP 4 Optimize**
+
+Input $X$, $A$, $Z$
+
+while True:
+- `g_beta = grad_beta(theta_old, beta_old)`
+- `g_theta = grad_beta(theta_old, beta_old)`
+- `f_old = fcn(theta_old, beta_old)`
+- 
 
 
 ---
