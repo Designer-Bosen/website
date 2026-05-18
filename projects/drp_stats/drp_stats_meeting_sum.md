@@ -48,3 +48,5 @@ $$\textcolor{red}{\text{QUESTIONS}
 }$$
 
 - If I induce graph sparsity, $\beta$ (neightbor effect) is not really deterministic to the proportion of positive X. This makes it hard to recover beta
+- Recommendation of Elastic net prior and horseshoe prior for $\theta$
+- Check experiment flow and optimization pseudo code

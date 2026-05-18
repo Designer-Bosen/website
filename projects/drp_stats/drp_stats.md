@@ -18,7 +18,7 @@
 
 This **Stats 199 - Directed Research** is a 1-quarter contract course at UCLA Statistics and Data Science conducted under the supervision of Professor George Michailidis. This individual directed research is built upon on the recent work [High Dimensional Logistic Regression Under Network Dependence](https://jmlr.org/papers/volume25/22-1040/22-1040.pdf) which addresses the presence of network dependence in observations via introducing Ising-type network interaction structure into the logistic regression model. The paper proosed a penalized maximum pseudo-likelihood (PMPL) approach to overcome computational burden of full likelihood. This approach enables efficient estimation in high-dimensional setting while achieving descent computational rate and approximation accuracy. In particular, under sparsity and weak dependence conditions, PMPL estimator achieves consistency comparable to classical logistic regression with independent data.
 
-Motivated by my research interest in high dimensional Bayesian inference...
+Motivated by my research interest in high dimensional statistics Bayesian inference...
 
 
 
@@ -41,10 +41,7 @@ $$f(\theta \mid Y) = \frac{f(Y \mid \theta) \cdot f(\theta)}{f(Y)} = \frac{\text
 
 ## Phase 3: [Optimization](index.html?file=drp_stats_phase3.md)
 
-## Phase 4: Theory
-
-**Bias Analysis**
-
+## Phase 4: [Experiment Flow](index.html?file=drp_stats_phase4.md)
 
 
 ---

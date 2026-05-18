@@ -51,23 +51,25 @@ $$
 
 Therefore, the objective function $\mathcal{L}(\theta^T, \beta)$ is convex.
 
+----
+
 ### PSEUDO CODE (Promimal GD with backtracking line search)
 
 **STEP 1: Define Parameters**
-- $\lambda$: Laplace prior penalty coefficient
-- $\tau^2$: Gaussian prior variance
-- $\text{tol}$: Stopping tolerance
-- $\text{shrink}$: Backtracking step size shrinkage factor
-- $\text{eps}$: Backtracking decreasing factor
-- $\eta_{\beta0}$: GD w.r.t $\beta$ initial step size
-- $\eta_{\theta0}$: GD w.r.t $\theta^T$ initial step size
+- $\lambda$: Laplace prior penalty coefficient (tuning)
+- $\tau^2$: Gaussian prior variance (tuning)
+- $\text{tol}=10^{-6}$: Stopping tolerance
+- $\text{shrink}=0.5$: Backtracking step size shrinkage factor
+- $\text{eps}=0.001$: Backtracking decreasing factor
+- $\eta_{\beta0}=1$: GD w.r.t $\beta$ initial step size
+- $\eta_{\theta0}=1$: GD w.r.t $\theta^T$ initial step size
 
 **STEP 2: Define Functions**
 - $\text{fcn}(\theta, \beta)$: $\mathcal{L}(\theta^T, \beta)=-\ell(\theta^T, \beta) + \lambda\|\theta^T\|_1 + \frac{\beta^2}{2\tau_\beta^2}$
 - $\text{grad}_\beta(\theta, \beta)$: $\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$
 - $\text{grad}_\theta(\theta, \beta)$: $\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$
 
-**STEP 3 Optimize**
+**STEP 3: Optimize**
 
 - Initialize $\beta_{old}=0$, $\theta_{old}=\vec0$, 
 - Initialize $\beta_{new}=\beta_{old}$, $\theta_{new}=\theta_{old}$

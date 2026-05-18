@@ -11,6 +11,8 @@ For each node in each iteration, $X_i$ is sampled from a conditional probability
 
 $$\mathbb{P}(X_i = 1 \mid X_{-i}, \mathbf{Z})=\sigma(2(\theta^T\mathbf{Z}_i + \beta m_i))$$
 
+---
+
 ### PSEUDO CODE:
 
 **STEP 1: Create**

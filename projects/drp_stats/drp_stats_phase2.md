@@ -60,9 +60,8 @@ $$-\ell(\theta^T, \beta)=-\sum_{i=1}^N \log \sigma(2X_iS_i)$$
 ### PRIOR CHOICE
 
 **beta:**
-- $\beta \sim N(0, \tau^2_\beta)$: Standard Gaussian Prior 
+- $\textbf{Gaussian: }\beta \sim N(0, \tau^2_\beta)$
 
 **sigma:**
 - $\textbf{Laplace: }\theta^T_i \sim \text{Laplace}(\lambda)$: Turns into L1 penalty in MAP. Induces self-effect sparsity in high dimension
-- $\textbf{Spike-and-Slab Prior: }\theta^T_i \sim (1-\pi)\delta_0+\pi N(0, \tau_{\theta^T}^2)$ where $\delta_0=1$ if $\theta^T_i=0$; $\delta_0=0$ otherwise: Encourages exact sparsity through a mixture of a point mass at zero and a Gaussian component.
 - $\textbf{Horseshoe: }\theta^T_i \sim N(0, \lambda_i^2 \tau_{\theta^T}^2)$:  Strongly shrinks small coefficients toward zero while allowing large signals to remain less penalized.
