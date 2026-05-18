@@ -35,13 +35,16 @@ has neighbor effects $\beta m_i$ becomes a fixed term. And this is a logistic-ty
 - After finishing constructing the prior and setup the basic model correctly, we can then consider neighbor effects.
 
 ## Week 6
+- Generate $\beta$ using uniform distribution or normal distribution with clipping. $\beta$ has a strong interaction with the graph sparsity.
+
+- The objective function is proven to be convex. for L1 term, apply proximal descent method.
+
+- Since all nodes share the same global parameters $\theta$ and $\beta$, the node-wise conditional distributions are all compatible with the same joint model, so using node-wise conditional probabilities does not introduce model asymptotic bias. 
+
+
+## Week 8
 
 $$\textcolor{red}{\text{QUESTIONS}
 }$$
 
-- If we want to induce graph sparsity and learn the network structure, do we need to replace the scalar dependence parameter $\beta$ with an edge-specific interaction matrix $B=(\beta_{ij})$? I remember in this paper $\beta$ is just a scalar
-- Can I consider MLP to recover $\beta$ and $\theta$, and how does this connect to the posterior contraction rate.
-- Sub-regression of L1 term, sparsity, and sign function with $\{-1, 1\}$ encoding.
-- Lecture Question: is 1 a supremum of AUC instead of maximum? Since in hypothesis testing, alpha + beta > 0
-- Lecture QUestion: do people simulate the ratio of its biased down, if so, we can just add that back to recover more unbiased estimate
-
+- If I induce graph sparsity, $\beta$ (neightbor effect) is not really deterministic to the proportion of positive X. This makes it hard to recover beta

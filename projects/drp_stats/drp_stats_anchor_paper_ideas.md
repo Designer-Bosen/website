@@ -73,9 +73,5 @@ where $s \geq \|\theta\|_0$ is the sparsity level.
 
 The pseudo-likelihood formulation allows to reduce a complex dependent model into summation of logistic type terms. It achieves high computational efficiency while ensuring good approximation. Despite ignoring the global dependence, PMPL retains high probability of convergence under some conditions such as sparsity and weak dependence. In particular, the rate $\sqrt{\frac{\log d}{N}}$ does not degrade as much as the dimension increases compared with the standard MLE rate $\sqrt{\frac{1}{N}}$.
 
-## Weakly Dependent Data and Dobrushin’s Condition
 
-## Restricted Strong Convexity (RSC)
-
-## Main Contribution of the Anchor Paper
 
