@@ -10,19 +10,23 @@ with
 
 $$\mathcal{L}(\theta^T, \beta)=-\ell(\theta^T, \beta) + \lambda\|\theta^T\|_1 + \frac{\beta^2}{2\tau_\beta^2}$$
 
+To avoid gradient disappearance, take the negative pseudo log-likelihood to be the averaged form such that:
+
+$$-\ell(\theta^T, \beta)=-\frac1N\sum_{i=1}^N \log \sigma(2X_iS_i)$$
+
 ### GRADIENT (smooth-terms)
 
-$$\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$$
+$$\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-\frac2N\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$$
 
-$$\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}= -2\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$$
+$$\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}= -\frac2N\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$$
 
 ### HESSIAN MATRIX (smooth-terms)
 
-$$\nabla_{\beta}^2\mathcal{L}(\theta^T, \beta)=4\sum_{i=1}^N w_i m_i(X)^2+\frac{1}{\tau_\beta^2}$$
+$$\nabla_{\beta}^2\mathcal{L}(\theta^T, \beta)=\frac4N\sum_{i=1}^N w_i m_i(X)^2+\frac{1}{\tau_\beta^2}$$
 
-$$\nabla^2_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=4\sum_{i=1}^N w_i \mathbf{Z}_i\mathbf{Z}_i^T$$
+$$\nabla^2_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=\frac4N\sum_{i=1}^N w_i \mathbf{Z}_i\mathbf{Z}_i^T$$
 
-$$\nabla_{\beta}\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}= 4\sum_{i=1}^N w_i \mathbf{Z}_im_i(X)$$
+$$\nabla_{\beta}\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}= \frac4N\sum_{i=1}^N w_i \mathbf{Z}_im_i(X)$$
 
 where $w_i=\sigma(2X_iS_i) \sigma(-2X_iS_i)$. The Hessian matrix $H$ for smooth points (i.e. $\theta^T_j\neq 0$), the gradient is given as 
 
@@ -30,10 +34,10 @@ $$
 \begin{aligned}
 H&=
 \begin{pmatrix}
-4\sum_{i=1}^N w_i \mathbf{Z}_i\mathbf{Z}_i^T & 4\sum_{i=1}^N w_i \mathbf{Z}_im_i(X) \\
-4\sum_{i=1}^N w_i m_i(X)Z_i^T & 4\sum_{i=1}^N w_i m_i(X)^2+\frac{1}{\tau_\beta^2} 
+\frac4N\sum_{i=1}^N w_i \mathbf{Z}_i\mathbf{Z}_i^T & \frac4N\sum_{i=1}^N w_i \mathbf{Z}_im_i(X) \\
+\frac4N\sum_{i=1}^N w_i m_i(X)Z_i^T & \frac4N\sum_{i=1}^N w_i m_i(X)^2+\frac{1}{\tau_\beta^2} 
 \end{pmatrix} \\
-&= 4\sum_{i=1}^N w_i u_iu_i^T + 
+&= \frac4N\sum_{i=1}^N w_i u_iu_i^T + 
 \begin{pmatrix}
 0 & 0 \\
 0 & \frac{1}{\tau_\beta^2}
@@ -66,8 +70,8 @@ Therefore, the objective function $\mathcal{L}(\theta^T, \beta)$ is convex.
 
 **STEP 2: Define Functions**
 - $\text{fcn}(\theta, \beta)$: $\mathcal{L}(\theta^T, \beta)=-\ell(\theta^T, \beta) + \lambda\|\theta^T\|_1 + \frac{\beta^2}{2\tau_\beta^2}$
-- $\text{grad}_\beta(\theta, \beta)$: $\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$
-- $\text{grad}_\theta(\theta, \beta)$: $\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=-2\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$
+- $\text{grad}_\beta(\theta, \beta)$: $\nabla_{\beta}\mathcal{L}(\theta^T, \beta)=-\frac2N\sum_{i=1}^N X_i \sigma(-2X_iS_i)m_i(X)+\frac{\beta}{\tau_\beta^2}$
+- $\text{grad}_\theta(\theta, \beta)$: $\nabla_{\theta^T} \big\{-\ell(\theta^T, \beta) \big\}=-\frac2N\sum_{i=1}^N X_i \sigma(-2X_iS_i)\mathbf{Z}_i$
 
 **STEP 3: Optimize**
 
