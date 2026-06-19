@@ -16,7 +16,7 @@ $$\mathbb{P}(X_i=1 \mid \mathbf{Z}_i)=
 
 for $1 \leq i \leq N$ and $\mathbf{\theta}=(\theta_1 ,\dots, \theta_d)^T \in \mathbb{R}^d$. 
 
-## Gradient and Hessian:
+## Log-likelihood:
 
 with the assumption $X_1, \dots, X_N$ ​are conditionally independent given $\mathbf{Z}_1, \dots, \mathbf{Z}_N$. If we want to optimize $\ell(\theta)$, we need to consider its Gradient and Hessian, which are given by:
 
