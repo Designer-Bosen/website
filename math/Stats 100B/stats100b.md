@@ -427,14 +427,6 @@ M_Z(t) &= E[e^{tZ}] \\
 \end{aligned}
 $$
 
-## Properties of moment generating functions
-Let $X$ be a random variable with moment genearting function $M_X(t) = E[e^{tX}]$, and $a$, $b$ are constants
-- $M_{X+a}(t) = E[e^{t(X+a)}] = e^{ta} E[e^{tX}] = e^{at}M_X(t)$
-- $M_{bX}(t) = E[e^{tbX}] = M_X(bt)$
-- $M_{\frac{X+a}{b}}(t) = E[e^{t\frac{X+a}{b}}]$
-
-
-
 ## Theorem 
 Let $X$, $Y$ be independent random vairables with moment generating functions $M_X(t)$, $M_Y(t)$ respectively. Then, the moment generating function of the sum of these two random variables is equal to the product of the individual moment generating functions:
 
@@ -457,3 +449,58 @@ $$X \sim \text{Poission}(\lambda_1), Y \sim \text{Poission}(\lambda_2), X \perp\
 $$M_{X+Y}(t) = M_X(t)M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}$$
 
 $$X + Y \sim \text{Poission}(\lambda_1 + \lambda_2)$$
+
+## Properties of moment generating functions
+Let $X$ be a random variable with moment genearting function $M_X(t) = E[e^{tX}]$, and $a$, $b$ are constants
+- $M_{X+a}(t) = E[e^{t(X+a)}] = e^{ta} E[e^{tX}] = e^{at}M_X(t)$
+- $M_{bX}(t) = E[e^{tbX}] = M_X(bt)$
+- $M_{\frac{X+a}{b}}(t) = e^{\frac{a}{b}t} E[e^{\frac{t}{b}X}] = e^{\frac{a}{b}t} M_X(\frac{t}{b})$
+
+### Example - MGF of normal random variable
+
+Use the moment generating function of $Z \sim N(0,1)$ to find the moment generating function of $X \sim N(\mu, \sigma)$
+
+$$Z = \frac{X - \mu}{\sigma} \quad \Rightarrow \quad X = \mu + \sigma Z$$
+
+$$
+\begin{aligned}
+M_X(t) = M_{\mu + \sigma Z}(t) &= E[e^{t(\mu + \sigma Z)}] \\
+&= e^{t\mu} E[e^t\sigma Z] \\
+&= e^{t\mu} M_Z(\sigma t) \\
+&= e^{t\mu} e^{\frac{1}{2}t^2\sigma^2} \\
+&= e^{t\mu + \frac{1}{2}t^2\sigma^2}
+\end{aligned}
+$$
+
+### Example 
+Suppose $X$, $Y$ are indepedent random variables. Find the distribution of $X+Y$, where $X \sim N(\mu_1, \sigma_1), Y \sim N(\mu_2, \sigma_2)$
+
+$$M_{X+Y}(t) = M_X(t)M_Y(t) = e^{t\mu_1 + \frac{1}{2}t^2\sigma_1^2} e^{t\mu_2 + \frac{1}{2}t^2\sigma_2^2} = e^{t(\mu_1 + \mu_2) + \frac{1}{2}t^2(\sigma_1^2 + \sigma_2^2)}$$
+
+$$E[X+Y] = \mu_1 + \mu_2 \qquad var[X+Y] = \sigma_1^2 + \sigma_2^2$$
+
+$$X+Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$$
+
+### Example
+Let $X_1, X_2, \dots, X_n \overset{\text{i.i.d.}}{~} N(\mu, \sigma)$. Use moment generating functions to find the distribution.
+
+#### (a). $T = X_1 + X_2 + \dots + X_n$
+
+$$
+\begin{aligned}
+M_T(t) = M_{X_1 + X_2 + \dots + X_n}(t) 
+&= M_{X_1}(t)M_{X_2}(t) \dots M_{X_n}(t) \\
+&= \big( M_{X_i}(t) \big)^n \\
+&= \big( e^{t\mu + \frac{1}{2}t^2\sigma^2} \big)^n \\
+&= e^{tn\mu + \frac{1}{2}t^2n\sigma^2} \\
+\end{aligned}
+$$
+
+$$T \sim N(n\mu, n\sigma^2)$$
+
+
+#### (b). $\bar{X} = \frac{\sum_{i=1}^n X_i}{n}$
+
+$$M_\bar{X}(t) = M_{\frac{T}{n}}(t) = M_T(\frac{t}{n}) = e^{t\mu + \frac{1}{2}t^2\frac{\sigma^2}{n}}$$
+
+$$\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$$
