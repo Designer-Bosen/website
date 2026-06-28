@@ -355,7 +355,7 @@ M_X''(t) &= \frac{\partial^2 M_X(t)}{\partial t^2} = E[X^2e^{tX}] \quad \Rightar
 \end{aligned}
 $$
 
-### Corollary 
+## Corollary 
 Instead of differentiating $M_X(t)$, we can differentiate $\log[M_X(t)]$ and evaluate the first and second derivative at $t=0$. This will give $E[X]$ and $var[X]$.
 
 $$
@@ -413,3 +413,47 @@ $$
 ### MGF of exponential random variable
 
 Let $X \sim exp(\lambda)$. The exponential distribution is a special case of $\Gamma(\alpha, \beta)$ with $\alpha = 1$ and $\beta = \frac{1}{\lambda}$, therefore, $M_X(t) = (1-\frac{t}{\lambda})^{-1}$
+
+### MGF of standard normal random variable
+
+Let $Z \sim N(0,1)$
+
+$$
+\begin{aligned}
+M_Z(t) &= E[e^{tZ}] \\
+&= \int_{-\infty}^\infty e^{tz} \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}} dz \\
+&= e^{\frac{t^2}{2}} \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-\frac{(z-t)^2}{2}} dz \\
+&= e^{\frac{t^2}{2}}
+\end{aligned}
+$$
+
+## Properties of moment generating functions
+Let $X$ be a random variable with moment genearting function $M_X(t) = E[e^{tX}]$, and $a$, $b$ are constants
+- $M_{X+a}(t) = E[e^{t(X+a)}] = e^{ta} E[e^{tX}] = e^{at}M_X(t)$
+- $M_{bX}(t) = E[e^{tbX}] = M_X(bt)$
+- $M_{\frac{X+a}{b}}(t) = E[e^{t\frac{X+a}{b}}]$
+
+
+
+## Theorem 
+Let $X$, $Y$ be independent random vairables with moment generating functions $M_X(t)$, $M_Y(t)$ respectively. Then, the moment generating function of the sum of these two random variables is equal to the product of the individual moment generating functions:
+
+$$M_{X+Y}(t) = M_X(t)M_Y(t)$$
+
+**Proof**: $M_{X+Y}(t) = E[e^{t(X+Y)}] = E[e^{tX} \cdot e^{tY}] \overset{\text{indep}}{=} E[e^{tX}]E[e^{tY}] = M_X(t)M_Y(t)$ 
+
+### Example 
+
+$$X \sim bin(n_1, p), Y \sim bin(n_2, p), X \perp\!\!\!\perp Y$$
+
+$$M_{X+Y}(t) = M_X(t)M_Y(t) = (pe^t + 1 - p)^{n_1 + n_2}$$
+
+$$X + Y \sim bin(n_1 + n_2, p)$$
+
+### Example 
+
+$$X \sim \text{Poission}(\lambda_1), Y \sim \text{Poission}(\lambda_2), X \perp\!\!\!\perp Y$$
+
+$$M_{X+Y}(t) = M_X(t)M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}$$
+
+$$X + Y \sim \text{Poission}(\lambda_1 + \lambda_2)$$
