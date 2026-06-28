@@ -3,7 +3,7 @@
 <!-- Credit: https://stackoverflow.com/questions/37770620/how-to-include-markdown-md-files-inside-html-files-->
 <head>
     <meta charset="UTF-8">
-    <title>Math History</title>
+    <title>Stats 100B</title>
 
     <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -57,7 +57,7 @@
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const file = params.get("file") || "gauss.md";
+const file = params.get("file") || "stats100b.md";
 
 fetch(file)
 .then(r => r.text())
