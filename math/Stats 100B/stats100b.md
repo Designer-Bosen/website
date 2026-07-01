@@ -132,7 +132,8 @@ $cov[\mathbf{A}^T\mathbf{Y}, \mathbf{B}^T\mathbf{Y}] = \mathbf{A}^T\boldsymbol{\
 1. Let $X$ be a continuous random variable. Then $E[X]=\int_x xf(x)dx$
 2. Suppose we want to find the expectation of a function of $X$. Let $Y = g(X)$. Show that $E[g(X)]=\int_xg(x)f(x)dx$
     <div style="border:2px solid black; padding:12px; margin:12px 0; border-radius:4px;">
-    $\textbf{Proof:}$
+    
+    **Proof**:
 
     One way to compute $E[Y]$ is to find the pdf of $Y$. Use the method of cdf. Begin with the cdf of Y.
     $$F_Y(y) = P[Y \leq y] = P[g(X) \leq y] = P[X \leq w(y)] = F_X(w(y))$$
@@ -169,7 +170,8 @@ Note: To find the marginal pdf, use $f(x) = \int_y f(x,y)dy$ and $f(y) = \int_x 
 Let $X$, $Y$ be independent random variables. Then $E[XY]=E[X]E[Y]$
 
 <div style="border:2px solid black; padding:12px; margin:12px 0; border-radius:4px;">
-$\textbf{Proof:}$
+
+**Proof**:
 
 $XY$ is a function of $X$ and $Y$. Therefore, using the expectation of a function of $x$ and $y$ $E[g(x,y)] = \int_x \int_y g(x,y) f(x,y) dx dy$, we get:
 
@@ -192,7 +194,8 @@ Let $X$, $Y$ be independent random variables, and let $g(x)$ and $h(y)$ be funct
 Let $g(x)$ be a function of $X$ alone and $h(y)$ be a function of $Y$ alone. Then $X$, $Y$ are independent iff $f(x,y)=g(x)h(y)$.
 
 <div style="border:2px solid black; padding:12px; margin:12px 0; border-radius:4px;">
-$\textbf{Proof:}$
+
+**Proof**:
 
 Let $c = \int_{-\infty}^\infty g(x) dx$ and $d = \int_{-\infty}^\infty h(y) dy$. 
 
@@ -246,7 +249,8 @@ Suppose a random variable $X$ has a pdf or pmf that can be expressed in the form
 
 
 <div style="border:2px solid black; padding:12px; margin:12px 0; border-radius:4px;">
-$\textbf{Proof of (a):}$
+
+**Proof of (a)**:
 
 $$
 \begin{aligned}
@@ -504,3 +508,116 @@ $$T \sim N(n\mu, n\sigma^2)$$
 $$M_\bar{X}(t) = M_{\frac{T}{n}}(t) = M_T(\frac{t}{n}) = e^{t\mu + \frac{1}{2}t^2\frac{\sigma^2}{n}}$$
 
 $$\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$$
+
+
+---
+
+
+# Lec 4: Functions of random variables 
+
+## Method of cdf
+
+### Example 
+Let $X \sim \Gamma(\alpha, \beta)$. Find the distribution of $Y = cX, c > 0$, with method of cdf.
+
+$$
+\begin{aligned}
+F_Y(y) &= P(Y \leq y) \\
+&= P(cX \leq y) \\
+&= P(X \leq \frac{y}{c}) \\
+&= F_X(\frac{y}{c}) \\
+f_Y(y) &= \frac{1}{c} f_X(\frac{y}{c}) \\
+&= \frac{1}{c} \frac{\frac{y}{c}^{\alpha-1} e^{-\frac{y}{c\beta}}}{\Gamma(\alpha)\beta^\alpha} \\
+&= \frac{y^{\alpha-1} e^{-\frac{y}{c\beta}}}{\Gamma(\alpha)(c\beta)^\alpha}
+\end{aligned}
+$$
+
+Therefore, $Y \sim \Gamma(\alpha, c\beta)$
+
+### Example
+Let $Z \sim N(0,1)$. Find the pdf of $X = Z^2$.
+
+$$
+\begin{aligned}
+F_X(x) &= P(X \leq x) \\
+&= P(Z^2 \leq x) \\
+&= P(-\sqrt{x} \leq Z \leq \sqrt{x}) \\
+&= P(Z \leq \sqrt{x}) - P(Z \leq -\sqrt{x}) \\
+&= F_Z{\sqrt{x}} - F_Z{-\sqrt{x}} \\
+f_X(x) &= \frac{1}{2}x^{-\frac{1}{2}}f_Z(\sqrt{x}) + \frac{1}{2}x^{-\frac{1}{2}}f_Z(-\sqrt{x}) \\
+&= \frac{1}{2}x^{-\frac{1}{2}} \frac{1}{\sqrt{2\pi}}e^{-\frac{x}{2}} + \frac{1}{2}x^{-\frac{1}{2}}\frac{1}{\sqrt{2\pi}}e^{-\frac{x}{2}} \\
+&= \frac{x^{-\frac{1}{2}}e^{-\frac{x}{2}}}{\sqrt{2\pi}} \\
+&= \frac{x^{-\frac{1}{2}}e^{-\frac{x}{2}}}{\Gamma{\frac{1}{2}}2^{\frac{1}{2}}}
+\end{aligned}
+$$
+
+Therefore, $Z^2 \sim \Gamma(\frac{1}{2}, 2) = \chi^2_1$
+
+## Method of transformation
+
+Let $X$ be a continuous random variable with pdf $f(x)$. Let $Y=g(X)$ be a monotone function (either increasing or decreasing), then there is an one-to-one transformation. The pdf of Y(X) is given by 
+
+$$f_Y(y) = f_X[g^{-1}(y)]\big| \frac{d}{dy}g^{-1}(y) \big|$$
+
+<div style="border:2px solid black; padding:12px; margin:12px 0; border-radius:4px;">
+
+**Proof**:
+
+**Case 1: decreasing function**
+
+$$
+\begin{aligned}
+F_Y(y) &= P(Y \leq y) \\
+&= P(g(x) \leq y) \\
+&= P(X \leq g^{-1}(y)) \\
+&= F_X(g^{-1}(y)) \\
+f_Y(y) &= \frac{\partial}{\partial y}F_Y(y) \\
+&= \frac{\partial}{\partial y}F_X(g^{-1}(y)) \\
+&= f_X(g^{-1}(y)) \frac{d}{dy}g^{-1}(y) \quad (\text{positive} \cdot \text{positive})
+\end{aligned}
+$$
+
+**Case 2: increasing function**
+
+$$
+\begin{aligned}
+F_Y(y) &= P(Y \leq y) \\
+&= P(g(x) \leq y) \\
+&= P(X > g^{-1}(y)) \\
+&= 1 - F_X(g^{-1}(y)) \\
+f_Y(y) &= \frac{\partial}{\partial y}F_Y(y) \\
+&= \frac{\partial}{\partial y}(1 - F_X(g^{-1}(y))) \\
+&= - f_X(g^{-1}(y)) \frac{d}{dy}g^{-1}(y) \quad (-\text{positive} \cdot \text{negative})
+\end{aligned}
+$$
+
+Therefore $f_Y(y) = f_X[g^{-1}(y)]\big| \frac{d}{dy}g^{-1}(y) \big|$
+
+**Results**
+
+Let $X$ be a continuous random variable and let $Y=g(X)$
+- If $g(X)$ is increasing, then $F_Y(y) = F_X[g^{-1}(y)]$
+- If $g(X)$ is decreasing, then $F_Y(y) = 1 - F_X[g^{-1}(y)]$
+
+</div>
+
+### Example 
+Let $X \sim \Gamma(\alpha, \beta)$. Find the distribution of $Y = cX, c > 0$, with method of transformation.
+
+$$
+\begin{aligned}
+g(x) &= cX \quad \Rightarrow \quad g^{-1}(y)=\frac{y}{c} \\
+f_Y(y) &= f_X[g^{-1}(y)]\big| \frac{d}{dy}g^{-1}(y) \big| \\
+&= f_x(\frac{y}{c})\cdot \frac{1}{c} \\
+&= \frac{y^{\alpha-1} e^{-\frac{y}{c\beta}}}{\Gamma(\alpha)(c\beta)^\alpha}
+\end{aligned}
+$$
+
+### Example 
+Let $X \sim unif(0,1)$, $Y = ln(X)$
+
+$$f(x)=1, \quad F(x)=x$$
+$$y = g(x) = \log(y) \quad \Rightarrow \quad g^{-1}(y)=e^{-y}$$
+$$f_Y(y) = f_X(e^{-y}) \big| \frac{d}{dy}e^{-y}\big| = |-e^{-y}| = e^{-y}$$
+
+Therefore, $Y \sim exp(1)$
